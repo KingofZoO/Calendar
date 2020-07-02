@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Calendar.App">
+    <Application.Resources>
+        <Style x:Key="HeaderLabel" TargetType="Label">
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="TextColor" Value="Black"/>
+            <Setter Property="FontSize" Value="Large"/>
+        </Style>
+
+        <Style x:Key="ListViewLabel" TargetType="Label" BasedOn="{StaticResource HeaderLabel}">
+            <Setter Property="FontSize" Value="Default"/>
+        </Style>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Calendar.Views.NewRecordView">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="0">
+                <Label Grid.Column="0" 
+                       Text="{Binding DayViewModel.Date.Day}" 
+                       Style="{StaticResource HeaderLabel}"/>
+                <Label Grid.Column="1" 
+                       Text="{Binding DayViewModel.Month}" 
+                       Style="{StaticResource HeaderLabel}"/>
+                <Label Grid.Column="2" 
+                       Text="{Binding DayViewModel.Date.Year}" 
+                       Style="{StaticResource HeaderLabel}"/>
+            </Grid>
+
+            <TimePicker Grid.Row="1" Time="{Binding Time}" HorizontalOptions="Center"/>
+
+            <Editor Grid.Row="2" Text="{Binding Note}"/>
+
+            <Grid Grid.Row="3">
+                <Button Grid.Column="0" Text="Добавить" Command="{Binding AddRecordCommand}"/>
+                <Button Grid.Column="1" Text="Назад" Command="{Binding DayViewModel.MonthViewModel.BackCommand}"/>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>
