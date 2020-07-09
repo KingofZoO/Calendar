@@ -1,6 +1,9 @@
 ﻿using System;
+using Xamarin.Forms;
+using Calendar.Models;
 
 using Android.App;
+using Android.Content;
 using Android.Content.PM;
 using Android.Runtime;
 using Android.Views;

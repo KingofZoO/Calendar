@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Calendar.Interfaces;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace Calendar.Views {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MonthView : ContentPage {        
+    public partial class MonthView : ContentPage {
+        INotificationManager notificationManager;
+
         private string[] DaysName = new[] {
             "пн",
             "вт",
@@ -24,6 +27,7 @@ namespace Calendar.Views {
             InitializeComponent();
             
             PrepareCalendar();
+            notificationManager = DependencyService.Get<INotificationManager>();
         }
 
         private void PrepareCalendar() {
@@ -64,6 +68,10 @@ namespace Calendar.Views {
                     }
                 }
             }
+        }
+
+        private void Button_Clicked(object sender, EventArgs e) {
+            notificationManager.ScheduleNotification("Title", "Message", DateTime.Now.AddSeconds(5));
         }
     }
 }
