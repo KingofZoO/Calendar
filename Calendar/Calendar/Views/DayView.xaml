@@ -6,6 +6,7 @@
              mc:Ignorable="d"
              x:Class="Calendar.Views.DayView"
              x:Name="Page">
+
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -29,7 +30,8 @@
 
             <ListView Grid.Row="1"
                       ItemsSource="{Binding NoteRecords}"
-                      HasUnevenRows="True">
+                      HasUnevenRows="True"
+                      SelectionMode="None">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

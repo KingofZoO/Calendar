@@ -21,7 +21,7 @@
   </style>
 
   <color name="ActionBackgroundColor">#808080</color>
-  <color name="LongPressHighlightColor">#808080</color>
+  <color name="LongPressHighlightColor">#FFADD8E6</color>
   <color name="ListViewSelected">#FFADD8E6</color>
   
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
