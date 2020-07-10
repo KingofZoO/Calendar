@@ -21,9 +21,6 @@
                 <Button Grid.Column="1" 
                         Text="{Binding Year}" 
                         Command="{Binding YearViewCommand}"/>
-                <Button Grid.Column="2" 
-                        Text="Notify" 
-                        Clicked="Button_Clicked"/>
             </Grid>
 
             <Grid Grid.Row="1" x:Name="CalendarGrid" HorizontalOptions="CenterAndExpand"></Grid>

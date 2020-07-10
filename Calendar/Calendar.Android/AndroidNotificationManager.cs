@@ -21,7 +21,7 @@ namespace Calendar.Droid {
         private bool channelInitialized = false;
         private NotificationManager manager;
 
-        public void ScheduleNotification(string title, string message, DateTime scheduleDate) {
+        public void ScheduleNotification(string title, string message, DateTime scheduleDate, int id) {
             if (!channelInitialized) {
                 CreateNotificationChannel();
             }
@@ -30,7 +30,7 @@ namespace Calendar.Droid {
             alarmIntent.PutExtra(TitleKey, title);
             alarmIntent.PutExtra(MessageKey, message);
 
-            var pendingIntent = PendingIntent.GetBroadcast(AndroidApp.Context, 0, alarmIntent, PendingIntentFlags.UpdateCurrent);
+            var pendingIntent = PendingIntent.GetBroadcast(AndroidApp.Context, id, alarmIntent, PendingIntentFlags.UpdateCurrent);
 
             var utcTime = TimeZoneInfo.ConvertTimeToUtc(scheduleDate);
             var epochDif = (new DateTime(1970, 1, 1) - DateTime.MinValue).TotalSeconds;
@@ -53,17 +53,24 @@ namespace Calendar.Droid {
 
             channelInitialized = true;
         }
+
+        public void CancelNotification(int id) {
+            var intent = new Intent(AndroidApp.Context, typeof(NotificationAlarmHandler));
+            var pendingIntent = PendingIntent.GetBroadcast(AndroidApp.Context, id, intent, PendingIntentFlags.UpdateCurrent);
+            var alarmManager = AndroidApp.Context.GetSystemService(Context.AlarmService) as AlarmManager;
+            alarmManager.Cancel(pendingIntent);
+        }
     }
 
     [BroadcastReceiver]
     internal class NotificationAlarmHandler : BroadcastReceiver {
-        private const int pendingIntentId = 0;
-
         public override void OnReceive(Context context, Intent intent) {
             var message = intent.GetStringExtra(AndroidNotificationManager.MessageKey);
             var title = intent.GetStringExtra(AndroidNotificationManager.TitleKey);
 
-            PendingIntent pendingIntent = PendingIntent.GetActivity(context, pendingIntentId, intent, PendingIntentFlags.OneShot);
+            var newIntent = new Intent(context, typeof(MainActivity));
+
+            PendingIntent pendingIntent = PendingIntent.GetActivity(context, 0, newIntent, PendingIntentFlags.OneShot);
 
             NotificationCompat.Builder builder = new NotificationCompat.Builder(context, AndroidNotificationManager.ChannelId)
                 .SetContentIntent(pendingIntent)
@@ -74,7 +81,9 @@ namespace Calendar.Droid {
                 .SetDefaults((int)NotificationDefaults.Sound | (int)NotificationDefaults.Vibrate);
 
             var notificationManager = NotificationManagerCompat.From(context);
-            notificationManager.Notify(0, builder.Build());
+            Notification notification = builder.Build();
+            notification.Flags = NotificationFlags.AutoCancel;
+            notificationManager.Notify(0, notification);
         }
     }
 }

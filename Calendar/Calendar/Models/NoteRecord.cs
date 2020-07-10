@@ -10,7 +10,7 @@ namespace Calendar.Models {
         public int Id { get; set; }
 
         public DateTime NoteDate { get; set; }
-        public DateTime NotifyDate { get; set; }
+        public DateTime? NotifyDate { get; set; }
         public string Note { get; set; }
 
         [Ignore]
