@@ -85,7 +85,6 @@ namespace Calendar.ViewModels {
 
                 if (IsNotifyOn) {
                     newRecord.NotifyDate = DayViewModel.Date.Date + NotifyTime;
-                    DayViewModel.NotificationManager.ScheduleNotification(newRecord.NoteTime, newRecord.Note, newRecord.NotifyDate.Value, newRecord.Id);
                 }
 
                 App.DataBase.SaveRecord(newRecord);

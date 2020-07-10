@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 using SQLite;
+using Calendar.Interfaces;
+using Xamarin.Forms;
 
 namespace Calendar.Models {
     public class RecordsRepository {
         private SQLiteConnection database;
 
+        public INotificationManager NotificationManager { get; private set; }
+
         public RecordsRepository(string path) {
             database = new SQLiteConnection(path);
             database.CreateTable<NoteRecord>();
+
+            NotificationManager = DependencyService.Get<INotificationManager>();
         }
 
         public IEnumerable<NoteRecord> DayRecords(DateTime day) {
@@ -29,9 +35,14 @@ namespace Calendar.Models {
                 database.Update(record);
             else
                 database.Insert(record);
+
+            if (record.NotifyDate.HasValue) {
+                NotificationManager.ScheduleNotification(record.NoteTime, record.Note, record.NotifyDate.Value, record.Id);
+            }
         }
 
         public void DeleteRecord(NoteRecord record) {
+            NotificationManager.CancelNotification(record.Id);
             database.Delete<NoteRecord>(record.Id);
         }
     }

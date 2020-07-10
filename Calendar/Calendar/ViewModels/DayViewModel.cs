@@ -8,7 +8,6 @@ using Calendar.Models;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Calendar.Views;
-using Calendar.Interfaces;
 
 namespace Calendar.ViewModels {
     public class DayViewModel : INotifyPropertyChanged {
@@ -26,8 +25,6 @@ namespace Calendar.ViewModels {
         public ICommand ChangeRecordCommand { get; private set; }
         public ICommand RemoveRecordCommand { get; private set; }
 
-        public INotificationManager NotificationManager { get; private set; }
-
         public DayViewModel(MonthViewModel vm, DateTime date) {
             MonthViewModel = vm;
             Date = date;
@@ -38,8 +35,6 @@ namespace Calendar.ViewModels {
             NextDayCommand = new Command(NextDay);
             RemoveRecordCommand = new Command<NoteRecord>(RemoveRecord);
             ChangeRecordCommand = new Command<NoteRecord>(ChangeRecord);
-
-            NotificationManager = DependencyService.Get<INotificationManager>();
         }
 
         public IEnumerable<NoteRecord> NoteRecords {
@@ -92,8 +87,6 @@ namespace Calendar.ViewModels {
         private void ChangeRecord(NoteRecord record) => ShowNewNoteView(record);
 
         private void RemoveRecord(NoteRecord record) {
-            NotificationManager.CancelNotification(record.Id);
-
             App.DataBase.DeleteRecord(record);
             NoteRecords = App.DataBase.DayRecords(Date);
         }
