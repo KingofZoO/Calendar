@@ -13,6 +13,10 @@ namespace Calendar.ViewModels {
         private TimeSpan notifyTime = new TimeSpan(10, 0, 0);
         private string note;
         private bool isNotifyOn = false;
+        private bool isRepeatOn = false;
+        private int repeatIndex = 0;
+
+        public string[] RepeatIntervals { get; private set; } = RepeatInfo.RepeatStringCodes;
 
         private NoteRecord newRecord = new NoteRecord();
 
@@ -30,6 +34,11 @@ namespace Calendar.ViewModels {
                 if (record.NotifyDate.HasValue) {
                     NotifyTime = record.NotifyDate.Value - vm.Date;
                     IsNotifyOn = true;
+                }
+                
+                if(record.RepeatCode != RepeatInfo.NoRepeatCode) {
+                    RepeatIndex = record.RepeatCode;
+                    IsRepeatOn = true;
                 }
 
                 newRecord = record;
@@ -78,6 +87,26 @@ namespace Calendar.ViewModels {
             }
         }
 
+        public bool IsRepeatOn {
+            get => isRepeatOn;
+            set {
+                if (isRepeatOn != value) {
+                    isRepeatOn = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public int RepeatIndex {
+            get => repeatIndex;
+            set {
+                if (repeatIndex != value) {
+                    repeatIndex = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private void AddRecord() {
             if (!string.IsNullOrEmpty(Note)) {
                 newRecord.NoteDate = DayViewModel.Date.Date + NoteTime;
@@ -85,6 +114,10 @@ namespace Calendar.ViewModels {
 
                 if (IsNotifyOn) {
                     newRecord.NotifyDate = DayViewModel.Date.Date + NotifyTime;
+                }
+
+                if (IsRepeatOn) {
+                    newRecord.RepeatCode = repeatIndex;
                 }
 
                 App.DataBase.SaveRecord(newRecord);

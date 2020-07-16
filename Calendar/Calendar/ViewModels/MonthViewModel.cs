@@ -101,12 +101,15 @@ namespace Calendar.ViewModels {
             DateTime counterDay = firstMonthDay.AddDays(-prevMonthDays);
 
             IEnumerable<NoteRecord> monthRecords = App.DataBase.RecordsByDaysInterval(counterDay, counterDay.AddDays(42));
+            IEnumerable<NoteRecord> repeatRecords = App.DataBase.RepeatRecords();
 
             for (int i = 0; i < CalendarDays.Length; i++) {
                 DayCellViewModel currDay = CalendarDays[i];
                 currDay.Date = counterDay;
 
-                currDay.IsNoted = monthRecords.Any(el => el.NoteDate.Date == counterDay.Date);
+                currDay.IsNoted = monthRecords.Any(el => el.NoteDate.Day == counterDay.Day) ||
+                                  repeatRecords.Any(el => (el.RepeatCode == RepeatInfo.MonthRepeatCode && el.NoteDate.Day == counterDay.Day) ||
+                                  el.RepeatCode == RepeatInfo.YearRepeatCode && el.NoteDate.Month == counterDay.Month && el.NoteDate.Day == counterDay.Day);
 
                 if (currDay.Date == DateTime.Now.Date)
                     currDay.Color = DayCellViewModel.TodaysColor;

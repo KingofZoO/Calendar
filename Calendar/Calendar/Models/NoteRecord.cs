@@ -13,6 +13,9 @@ namespace Calendar.Models {
         public DateTime? NotifyDate { get; set; }
         public string Note { get; set; }
 
+        [Indexed]
+        public int RepeatCode { get; set; } = RepeatInfo.NoRepeatCode;
+
         [Ignore]
         public string NoteTime => NoteDate.ToString("HH:mm");
     }

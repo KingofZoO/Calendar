@@ -10,7 +10,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="3*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
@@ -39,8 +40,16 @@
                 <CheckBox Grid.Column="0" IsChecked="{Binding IsNotifyOn}" HorizontalOptions="End"/>
                 <TimePicker Grid.Column="1" Time="{Binding NotifyTime}" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding IsNotifyOn}"/>
             </Grid>
-
+            
             <Grid Grid.Row="4">
+                <Label Grid.Column="0" Text="Включить периодичность" Style="{StaticResource ListViewLabel}"/>
+                <CheckBox Grid.Column="0" IsChecked="{Binding IsRepeatOn}" HorizontalOptions="End"/>
+                <Picker Grid.Column="1" IsEnabled="{Binding IsRepeatOn}"
+                        ItemsSource="{Binding RepeatIntervals}"
+                        SelectedIndex="{Binding RepeatIndex}"/>
+            </Grid>
+
+            <Grid Grid.Row="5">
                 <Button Grid.Column="0" Text="Добавить" Command="{Binding AddRecordCommand}"/>
                 <Button Grid.Column="1" Text="Назад" Command="{Binding DayViewModel.MonthViewModel.BackCommand}"/>
             </Grid>

@@ -4,6 +4,7 @@ using System.Text;
 using SQLite;
 using Calendar.Interfaces;
 using Xamarin.Forms;
+using System.Linq;
 
 namespace Calendar.Models {
     public class RecordsRepository {
@@ -19,15 +20,30 @@ namespace Calendar.Models {
         }
 
         public IEnumerable<NoteRecord> DayRecords(DateTime day) {
-            return database.Query<NoteRecord>("SELECT * FROM NoteRecords " +
-                                              "WHERE NoteDate BETWEEN ? AND ? " +
-                                              "ORDER BY NoteDate", day.Date, new DateTime(day.Year, day.Month, day.Day, 23, 59, 59));
+            List<NoteRecord> resultRecords = database.Query<NoteRecord>("SELECT * FROM NoteRecords WHERE RepeatCode = ? AND NoteDate BETWEEN ? and ?", 
+                RepeatInfo.NoRepeatCode, day.Date, new DateTime(day.Year, day.Month, day.Day, 23, 59, 59));
+
+            IEnumerable<NoteRecord> repeatRecords = RepeatRecords();
+
+            foreach(var rec in repeatRecords) {
+                bool monthCheck = rec.RepeatCode == RepeatInfo.MonthRepeatCode && rec.NoteDate.Day == day.Day;
+                bool yearCheck = rec.RepeatCode == RepeatInfo.YearRepeatCode && rec.NoteDate.Month == day.Month && rec.NoteDate.Day == day.Day;
+
+                if (monthCheck || yearCheck)
+                    resultRecords.Add(rec);
+            }
+
+            return resultRecords.OrderBy(rec => rec.NoteDate);
         }
 
         public IEnumerable<NoteRecord> RecordsByDaysInterval(DateTime firstDay, DateTime lastDay) {
             return database.Query<NoteRecord>("SELECT * FROM NoteRecords " +
                                               "WHERE NoteDate BETWEEN ? AND ? " +
                                               "ORDER BY NoteDate", firstDay.Date, new DateTime(lastDay.Year, lastDay.Month, lastDay.Day, 23, 59, 59));
+        }
+
+        public IEnumerable<NoteRecord> RepeatRecords() {
+            return database.Query<NoteRecord>("SELECT * FROM NoteRecords WHERE RepeatCode != ?", RepeatInfo.NoRepeatCode);
         }
 
         public void SaveRecord(NoteRecord record) {
