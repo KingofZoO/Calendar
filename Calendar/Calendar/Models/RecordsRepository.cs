@@ -17,6 +17,8 @@ namespace Calendar.Models {
             database.CreateTable<NoteRecord>();
 
             NotificationManager = DependencyService.Get<INotificationManager>();
+
+            UpdateRepeatedNotifications();
         }
 
         public IEnumerable<NoteRecord> DayRecords(DateTime day) {
@@ -46,6 +48,10 @@ namespace Calendar.Models {
             return database.Query<NoteRecord>("SELECT * FROM NoteRecords WHERE RepeatCode != ?", RepeatInfo.NoRepeatCode);
         }
 
+        public IEnumerable<NoteRecord> RepeatNotifiedRecords() {
+            return database.Query<NoteRecord>("SELECT * FROM NoteRecords WHERE RepeatCode != ? AND NotifyDate IS NOT NULL", RepeatInfo.NoRepeatCode);
+        }
+
         public void SaveRecord(NoteRecord record) {
             if (record.Id != 0)
                 database.Update(record);
@@ -71,6 +77,22 @@ namespace Calendar.Models {
 
             database.DropTable<NoteRecord>();
             database.CreateTable<NoteRecord>();
+        }
+
+        private void UpdateRepeatedNotifications() {
+            foreach(var rec in RepeatNotifiedRecords()) {
+                if(DateTime.Now > rec.NotifyDate) {
+                    switch (rec.RepeatCode) {
+                        case RepeatInfo.MonthRepeatCode:
+                            rec.NotifyDate = rec.NotifyDate.Value.AddMonths(1);
+                            break;
+                        case RepeatInfo.YearRepeatCode:
+                            rec.NotifyDate = rec.NotifyDate.Value.AddYears(1);
+                            break;
+                    }
+                    SaveRecord(rec);
+                }
+            }
         }
     }
 }
