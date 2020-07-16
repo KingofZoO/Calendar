@@ -45,5 +45,16 @@ namespace Calendar.Models {
             NotificationManager.CancelNotification(record.Id);
             database.Delete<NoteRecord>(record.Id);
         }
+
+        public void DropRecords() {
+            var notifiedRecords = database.Query<NoteRecord>("SELECT * FROM NoteRecords WHERE NotifyDate IS NOT NULL");
+
+            foreach(var record in notifiedRecords) {
+                NotificationManager.CancelNotification(record.Id);
+            }
+
+            database.DropTable<NoteRecord>();
+            database.CreateTable<NoteRecord>();
+        }
     }
 }

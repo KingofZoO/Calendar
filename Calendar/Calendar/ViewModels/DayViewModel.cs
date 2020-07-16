@@ -24,6 +24,7 @@ namespace Calendar.ViewModels {
         public ICommand PrevDayCommand { get; private set; }
         public ICommand ChangeRecordCommand { get; private set; }
         public ICommand RemoveRecordCommand { get; private set; }
+        public ICommand DropRecordsCommand { get; private set; }
 
         public DayViewModel(MonthViewModel vm, DateTime date) {
             MonthViewModel = vm;
@@ -35,6 +36,7 @@ namespace Calendar.ViewModels {
             NextDayCommand = new Command(NextDay);
             RemoveRecordCommand = new Command<NoteRecord>(RemoveRecord);
             ChangeRecordCommand = new Command<NoteRecord>(ChangeRecord);
+            DropRecordsCommand = new Command(DropRecords);
         }
 
         public IEnumerable<NoteRecord> NoteRecords {
@@ -89,6 +91,14 @@ namespace Calendar.ViewModels {
         private void RemoveRecord(NoteRecord record) {
             App.DataBase.DeleteRecord(record);
             NoteRecords = App.DataBase.DayRecords(Date);
+        }
+
+        private async void DropRecords() {
+            bool result = await Application.Current.MainPage.DisplayAlert("Подтвердить действие", "Удалить ВСЕ записи за ВСЕ дни?", "Да", "Нет");
+            if (result) {
+                NoteRecords = null;
+                App.DataBase.DropRecords();
+            }
         }
 
         public void BackToDayView() {

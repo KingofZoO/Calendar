@@ -38,6 +38,7 @@
                             <ViewCell.ContextActions>
                                 <MenuItem Text="Изменить" Command="{Binding Path=BindingContext.ChangeRecordCommand, Source={x:Reference Name=Page}}" CommandParameter="{Binding .}"/>
                                 <MenuItem Text="Удалить" Command="{Binding Path=BindingContext.RemoveRecordCommand, Source={x:Reference Name=Page}}" CommandParameter="{Binding .}"/>
+                                <MenuItem Text="Удалить все записи" Command="{Binding Path=BindingContext.DropRecordsCommand, Source={x:Reference Name=Page}}"/>
                             </ViewCell.ContextActions>
                             <ViewCell.View>
                                 <Grid>
