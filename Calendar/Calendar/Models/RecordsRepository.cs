@@ -40,8 +40,9 @@ namespace Calendar.Models {
 
         public IEnumerable<NoteRecord> RecordsByDaysInterval(DateTime firstDay, DateTime lastDay) {
             return database.Query<NoteRecord>("SELECT * FROM NoteRecords " +
-                                              "WHERE NoteDate BETWEEN ? AND ? " +
-                                              "ORDER BY NoteDate", firstDay.Date, new DateTime(lastDay.Year, lastDay.Month, lastDay.Day, 23, 59, 59));
+                                              "WHERE RepeatCode = ? AND " +
+                                              "NoteDate BETWEEN ? AND ? " +
+                                              "ORDER BY NoteDate", RepeatInfo.NoRepeatCode, firstDay.Date, new DateTime(lastDay.Year, lastDay.Month, lastDay.Day, 23, 59, 59));
         }
 
         public IEnumerable<NoteRecord> RepeatRecords() {
