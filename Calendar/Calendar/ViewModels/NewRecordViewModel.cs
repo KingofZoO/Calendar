@@ -28,11 +28,11 @@ namespace Calendar.ViewModels {
             DayViewModel = vm;
 
             if (record != null) {
-                NoteTime = record.NoteDate - vm.Date;                
+                NoteTime = record.NoteDate.TimeOfDay;              
                 Note = record.Note;
 
                 if (record.NotifyDate.HasValue) {
-                    NotifyTime = record.NotifyDate.Value - vm.Date;
+                    NotifyTime = record.NotifyDate.Value.TimeOfDay;
                     IsNotifyOn = true;
                 }
                 
