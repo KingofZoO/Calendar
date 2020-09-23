@@ -87,13 +87,15 @@ namespace Calendar.Models {
 
         private void UpdateRepeatedNotifications() {
             foreach(var rec in RepeatNotifiedRecords()) {
-                if(DateTime.Now > rec.NotifyDate) {
+                DateTime now = DateTime.Now;
+                DateTime recTime = rec.NotifyDate.Value;
+                if (now > recTime) {
                     switch (rec.RepeatCode) {
                         case RepeatInfo.MonthRepeatCode:
-                            rec.NotifyDate = rec.NotifyDate.Value.AddMonths(1);
+                            rec.NotifyDate = new DateTime(now.Year, now.Month + 1, recTime.Day, recTime.Hour, recTime.Minute, recTime.Second);
                             break;
                         case RepeatInfo.YearRepeatCode:
-                            rec.NotifyDate = rec.NotifyDate.Value.AddYears(1);
+                            rec.NotifyDate = new DateTime(now.Year + 1, recTime.Month, recTime.Day, recTime.Hour, recTime.Minute, recTime.Second);
                             break;
                     }
                     SaveRecord(rec);
