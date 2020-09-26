@@ -5,8 +5,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Calendar.Views.DayView"
-             x:Name="Page">
+             x:Name="Page"
+             BackgroundColor="{Binding MonthViewModel.BackgroundColor}">
 
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{Binding MonthViewModel.DefaultColor}"/>
+        </Style>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>

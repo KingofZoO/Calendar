@@ -7,11 +7,8 @@ using Xamarin.Forms;
 
 namespace Calendar.ViewModels {
     public class MonthCellViewModel : INotifyPropertyChanged {
-        private Color color = DefaultColor;
+        private Color color;
         private string month;
-
-        public static Color DefaultColor = Color.LightGray;
-        public static Color CurrMonthColor = Color.LightBlue;
 
         public Color Color {
             get => color;

@@ -16,6 +16,11 @@ namespace Calendar.ViewModels {
         private int year;
         private DateTime currentMonthDate;
 
+        private Color defaultColor;
+        private Color todaysColor;
+        private Color prevNextColor;
+        private Color backgroundColor;
+
         public string[] MonthsName = new[] {
             "Январь",
             "Февраль",
@@ -38,6 +43,7 @@ namespace Calendar.ViewModels {
                 Month = StringMonth(currentMonthDate.Month);
                 Year = currentMonthDate.Year;
 
+                SetCalendarColors(currentMonthDate.Month - 1);
                 FillCalendarData();
             }
         }
@@ -89,10 +95,57 @@ namespace Calendar.ViewModels {
             }
         }
 
+        public Color DefaultColor {
+            get => defaultColor;
+            set {
+                if (defaultColor != value) {
+                    defaultColor = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Color TodaysColor {
+            get => todaysColor;
+            set {
+                if (todaysColor != value) {
+                    todaysColor = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Color PrevNextColor {
+            get => prevNextColor;
+            set {
+                if (prevNextColor != value) {
+                    prevNextColor = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Color BackgroundColor {
+            get => backgroundColor;
+            set {
+                if (backgroundColor != value) {
+                    backgroundColor = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         private void PrepareCalendarData() {
             for (int i = 0; i < CalendarDays.Length; i++) {
                 CalendarDays[i] = new DayCellViewModel();
             }
+        }
+
+        public void SetCalendarColors(int monthNum) {
+            DefaultColor = CalendarSettings.MonthSettings[monthNum].DefaultColor;
+            TodaysColor = CalendarSettings.MonthSettings[monthNum].TodaysColor;
+            PrevNextColor = CalendarSettings.MonthSettings[monthNum].PrevNextColor;
+            BackgroundColor = CalendarSettings.MonthSettings[monthNum].BackgroundColor;
         }
 
         private void FillCalendarData() {
@@ -112,11 +165,11 @@ namespace Calendar.ViewModels {
                                   el.RepeatCode == RepeatInfo.YearRepeatCode && el.NoteDate.Month == counterDay.Month && el.NoteDate.Day == counterDay.Day);
 
                 if (currDay.Date == DateTime.Now.Date)
-                    currDay.Color = DayCellViewModel.TodaysColor;
+                    currDay.Color = TodaysColor;
                 else if (currDay.Date.Month != CurrentMonthDate.Month)
-                    currDay.Color = DayCellViewModel.PrevNextColor;
+                    currDay.Color = PrevNextColor;
                 else
-                    currDay.Color = DayCellViewModel.DefaultColor;
+                    currDay.Color = DefaultColor;
 
                 counterDay = counterDay.AddDays(1);
             }

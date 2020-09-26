@@ -4,7 +4,15 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Calendar.Views.MonthView">
+             x:Class="Calendar.Views.MonthView"
+             BackgroundColor="{Binding BackgroundColor}">
+
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{Binding DefaultColor}"/>
+        </Style>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -26,8 +34,12 @@
             <Grid Grid.Row="1" x:Name="CalendarGrid" HorizontalOptions="CenterAndExpand"></Grid>
 
             <Grid Grid.Row="2">
-                <Button Grid.Column="0" Text="Предыдущий" Command="{Binding PrevMonthCommand}"/>
-                <Button Grid.Column="1" Text="Следующий" Command="{Binding NextMonthCommand}"/>
+                <Button Grid.Column="0" 
+                        Text="Предыдущий" 
+                        Command="{Binding PrevMonthCommand}"/>
+                <Button Grid.Column="1" 
+                        Text="Следующий" 
+                        Command="{Binding NextMonthCommand}"/>
             </Grid>
             
             <Button Grid.Row="3"

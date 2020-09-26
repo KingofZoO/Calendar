@@ -9,12 +9,8 @@ using System.Runtime.CompilerServices;
 namespace Calendar.ViewModels {
     public class DayCellViewModel : INotifyPropertyChanged {
         private DateTime date;
-        private Color color = DefaultColor;
+        private Color color;
         private bool isNoted = false;
-
-        public static Color DefaultColor = Color.LightGray;
-        public static Color TodaysColor = Color.LightBlue;
-        public static Color PrevNextColor = Color.Gray;
 
         public DayCellViewModel() { }
 

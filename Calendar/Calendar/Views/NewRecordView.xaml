@@ -4,7 +4,15 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="Calendar.Views.NewRecordView">
+             x:Class="Calendar.Views.NewRecordView"
+             BackgroundColor="{Binding DayViewModel.MonthViewModel.BackgroundColor}">
+
+    <ContentPage.Resources>
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{Binding DayViewModel.MonthViewModel.DefaultColor}"/>
+        </Style>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>

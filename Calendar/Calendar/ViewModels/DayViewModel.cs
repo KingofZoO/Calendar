@@ -68,6 +68,8 @@ namespace Calendar.ViewModels {
                 if (month != value) {
                     month = value;
                     OnPropertyChanged();
+
+                    MonthViewModel.SetCalendarColors(Date.Month - 1);
                 }
             }
         }
