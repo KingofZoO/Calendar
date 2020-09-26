@@ -10,6 +10,7 @@ namespace Calendar.ViewModels {
     public class DayCellViewModel : INotifyPropertyChanged {
         private DateTime date;
         private Color color;
+        private Color borderColor;
         private bool isNoted = false;
 
         public DayCellViewModel() { }
@@ -33,6 +34,16 @@ namespace Calendar.ViewModels {
             set {
                 if (color != value) {
                     color = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public Color BorderColor {
+            get => borderColor;
+            set {
+                if (borderColor != value) {
+                    borderColor = value;
                     OnPropertyChanged();
                 }
             }

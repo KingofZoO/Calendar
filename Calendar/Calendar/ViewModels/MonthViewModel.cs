@@ -164,6 +164,7 @@ namespace Calendar.ViewModels {
                                   repeatRecords.Any(el => (el.RepeatCode == RepeatInfo.MonthRepeatCode && el.NoteDate.Day == counterDay.Day) ||
                                   el.RepeatCode == RepeatInfo.YearRepeatCode && el.NoteDate.Month == counterDay.Month && el.NoteDate.Day == counterDay.Day);
 
+                currDay.BorderColor = PrevNextColor;
                 if (currDay.Date == DateTime.Now.Date)
                     currDay.Color = TodaysColor;
                 else if (currDay.Date.Month != CurrentMonthDate.Month)
