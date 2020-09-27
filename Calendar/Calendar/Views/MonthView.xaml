@@ -12,7 +12,11 @@
             <Setter Property="BackgroundColor" Value="{Binding DefaultColor}"/>
         </Style>
     </ContentPage.Resources>
-    
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Настройки" Order="Secondary" Command="{Binding SettingsViewCommand}"/>
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>

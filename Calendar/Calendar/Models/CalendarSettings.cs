@@ -5,10 +5,36 @@ using Xamarin.Forms;
 
 namespace Calendar.Models {
     public static class CalendarSettings {
-        public static MonthSettings[] MonthSettings;
+        private static string isColorsOnPropName = "IsColorsOn";
+        private static bool isColorsOn;
+
+        private static MonthSettings[] MonthSettings;
+        private static MonthSettings defaultMonthSettings = new MonthSettings(Color.LightGray, Color.LightBlue, Color.Gray, Color.White);
+
+        public static bool IsColorsOn {
+            get => isColorsOn;
+            set {
+                if (isColorsOn != value) {
+                    isColorsOn = value;
+                    App.Current.Properties[isColorsOnPropName] = isColorsOn;
+                }
+            }
+        }
 
         static CalendarSettings() {
+            LoadAppSettings();
             SetMonthSettings();
+        }
+
+        public static MonthSettings GetMonthSettings(int monthNum) {
+            return IsColorsOn ? MonthSettings[monthNum] : defaultMonthSettings;
+        }
+
+        private static void LoadAppSettings() {
+            if (App.Current.Properties.TryGetValue(isColorsOnPropName, out object prop))
+                isColorsOn = (bool)prop;
+            else
+                isColorsOn = false;
         }
 
         private static void SetMonthSettings() {

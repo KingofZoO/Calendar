@@ -56,6 +56,7 @@ namespace Calendar.ViewModels {
         public ICommand PrevMonthCommand { get; private set; }
         public ICommand YearViewCommand { get; private set; }
         public ICommand DayViewCommand { get; private set; }
+        public ICommand SettingsViewCommand { get; private set; }
 
         public ICommand BackCommand { get; private set; }
         public ICommand BackToCurrentMonthCommand { get; private set; }
@@ -68,6 +69,7 @@ namespace Calendar.ViewModels {
             PrevMonthCommand = new Command(PrevMonth);
             YearViewCommand = new Command(ShowYearView);
             DayViewCommand = new Command<int>(ShowDayView);
+            SettingsViewCommand = new Command(ShowSettingsVew);
 
             BackCommand = new Command(Back);
             BackToCurrentMonthCommand = new Command(ToCurrentMonth);
@@ -142,10 +144,11 @@ namespace Calendar.ViewModels {
         }
 
         public void SetCalendarColors(int monthNum) {
-            DefaultColor = CalendarSettings.MonthSettings[monthNum].DefaultColor;
-            TodaysColor = CalendarSettings.MonthSettings[monthNum].TodaysColor;
-            PrevNextColor = CalendarSettings.MonthSettings[monthNum].PrevNextColor;
-            BackgroundColor = CalendarSettings.MonthSettings[monthNum].BackgroundColor;
+            MonthSettings monthSettings = CalendarSettings.GetMonthSettings(monthNum);
+            DefaultColor = monthSettings.DefaultColor;
+            TodaysColor = monthSettings.TodaysColor;
+            PrevNextColor = monthSettings.PrevNextColor;
+            BackgroundColor = monthSettings.BackgroundColor;
         }
 
         private void FillCalendarData() {
@@ -198,6 +201,12 @@ namespace Calendar.ViewModels {
         private void ShowDayView(int dayIndex) {
             Navigation.PushAsync(new DayView() {
                 BindingContext = new DayViewModel(this, CalendarDays[dayIndex].Date)
+            });
+        }
+
+        private void ShowSettingsVew() {
+            Navigation.PushAsync(new SettingsView() {
+                BindingContext = new SettingsViewModel(this)
             });
         }
 
