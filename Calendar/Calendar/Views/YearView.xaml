@@ -5,14 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Calendar.Views.YearView"
-             BackgroundColor="{Binding MonthViewModel.BackgroundColor}">
+             Style="{StaticResource ContentPageStyle}">
 
-    <ContentPage.Resources>
-        <Style TargetType="Button">
-            <Setter Property="BackgroundColor" Value="{Binding MonthViewModel.DefaultColor}"/>
-        </Style>
-    </ContentPage.Resources>
-    
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>

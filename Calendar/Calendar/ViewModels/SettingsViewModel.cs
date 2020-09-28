@@ -32,8 +32,9 @@ namespace Calendar.ViewModels {
                 if (isColorsOn != value) {
                     isColorsOn = value;
                     OnPropertyChanged();
+
                     CalendarSettings.IsColorsOn = isColorsOn;
-                    MonthViewModel.SetCalendarColors(DateTime.Now.Month - 1);
+                    CalendarSettings.SetAppTheme(DateTime.Now.Month - 1);
                 }
             }
         }

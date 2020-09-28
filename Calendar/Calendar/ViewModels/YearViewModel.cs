@@ -55,9 +55,9 @@ namespace Calendar.ViewModels {
         private void FillYearData() {
             for (int i = 0; i < Months.Length; i++) {
                 if (DateTime.Now.Year == Year && DateTime.Now.Month == i + 1)
-                    Months[i].Color = MonthViewModel.TodaysColor;
+                    Months[i].Style = (Style)Application.Current.Resources["TodaysButton"];
                 else
-                    Months[i].Color = MonthViewModel.DefaultColor;
+                    Months[i].Style = (Style)Application.Current.Resources["DefaultButton"];
             }
         }
 

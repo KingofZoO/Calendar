@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Calendar.Themes.JanuaryTheme">
+
+    <Color x:Key="BackgroundColor">#ADCDE5</Color>
+    <Color x:Key="ButtonDefaultColor">#19598B</Color>
+    <Color x:Key="ButtonTodaysColor">#72B3E5</Color>
+    <Color x:Key="ButtonPrevNextColor">#052F4F</Color>
+    <Color x:Key="BorderColor">#052F4F</Color>
+</ResourceDictionary>

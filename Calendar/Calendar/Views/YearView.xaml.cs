@@ -30,9 +30,11 @@ namespace Calendar.Views {
                     Button monthButton = new Button();
                     int monthIndex = 4 * row + col;
                     monthButton.FontSize = 12;
+
+                    monthButton.SetBinding(Button.StyleProperty, $"Months[{monthIndex}].Style");
                     monthButton.SetBinding(Button.TextProperty, $"Months[{monthIndex}].Month");
-                    monthButton.SetBinding(Button.BackgroundColorProperty, $"Months[{monthIndex}].Color");
                     monthButton.SetBinding(Button.CommandProperty, "MonthViewCommand");
+
                     monthButton.CommandParameter = monthIndex;
                     MonthsGrid.Children.Add(monthButton, col, row);
                 }

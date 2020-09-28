@@ -56,11 +56,12 @@ namespace Calendar.Views {
                     else {
                         Button dayButton = new Button();
                         int dayIndex = 7 * (row - 1) + col;
+
+                        dayButton.SetBinding(Button.StyleProperty, $"CalendarDays[{dayIndex}].Style");
                         dayButton.SetBinding(Button.TextProperty, $"CalendarDays[{dayIndex}].Date.Day");
-                        dayButton.SetBinding(Button.BorderColorProperty, $"CalendarDays[{dayIndex}].BorderColor");
                         dayButton.SetBinding(Button.BorderWidthProperty, $"CalendarDays[{dayIndex}].IsNoted", BindingMode.OneWay, converter);
-                        dayButton.SetBinding(Button.BackgroundColorProperty, $"CalendarDays[{dayIndex}].Color");
                         dayButton.SetBinding(Button.CommandProperty, "DayViewCommand");
+
                         dayButton.CommandParameter = dayIndex;
                         CalendarGrid.Children.Add(dayButton, col, row);
                     }

@@ -6,14 +6,8 @@
              mc:Ignorable="d"
              x:Class="Calendar.Views.DayView"
              x:Name="Page"
-             BackgroundColor="{Binding MonthViewModel.BackgroundColor}">
+             Style="{StaticResource ContentPageStyle}">
 
-    <ContentPage.Resources>
-        <Style TargetType="Button">
-            <Setter Property="BackgroundColor" Value="{Binding MonthViewModel.DefaultColor}"/>
-        </Style>
-    </ContentPage.Resources>
-    
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>

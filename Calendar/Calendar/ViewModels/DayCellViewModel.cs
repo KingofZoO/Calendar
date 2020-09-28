@@ -9,8 +9,7 @@ using System.Runtime.CompilerServices;
 namespace Calendar.ViewModels {
     public class DayCellViewModel : INotifyPropertyChanged {
         private DateTime date;
-        private Color color;
-        private Color borderColor;
+        private Style style;
         private bool isNoted = false;
 
         public DayCellViewModel() { }
@@ -29,21 +28,11 @@ namespace Calendar.ViewModels {
             }
         }
 
-        public Color Color {
-            get => color;
+        public Style Style {
+            get => style;
             set {
-                if (color != value) {
-                    color = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public Color BorderColor {
-            get => borderColor;
-            set {
-                if (borderColor != value) {
-                    borderColor = value;
+                if (style != value) {
+                    style = value;
                     OnPropertyChanged();
                 }
             }

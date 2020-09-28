@@ -7,14 +7,14 @@ using Xamarin.Forms;
 
 namespace Calendar.ViewModels {
     public class MonthCellViewModel : INotifyPropertyChanged {
-        private Color color;
+        private Style style;
         private string month;
 
-        public Color Color {
-            get => color;
+        public Style Style {
+            get => style;
             set {
-                if (color != value) {
-                    color = value;
+                if (style != value) {
+                    style = value;
                     OnPropertyChanged();
                 }
             }

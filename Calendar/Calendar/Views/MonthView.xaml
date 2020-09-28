@@ -5,13 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Calendar.Views.MonthView"
-             BackgroundColor="{Binding BackgroundColor}">
-
-    <ContentPage.Resources>
-        <Style TargetType="Button">
-            <Setter Property="BackgroundColor" Value="{Binding DefaultColor}"/>
-        </Style>
-    </ContentPage.Resources>
+             Style="{StaticResource ContentPageStyle}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem Text="Настройки" Order="Secondary" Command="{Binding SettingsViewCommand}"/>

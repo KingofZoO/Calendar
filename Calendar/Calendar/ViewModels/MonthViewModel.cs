@@ -16,11 +16,6 @@ namespace Calendar.ViewModels {
         private int year;
         private DateTime currentMonthDate;
 
-        private Color defaultColor;
-        private Color todaysColor;
-        private Color prevNextColor;
-        private Color backgroundColor;
-
         public string[] MonthsName = new[] {
             "Январь",
             "Февраль",
@@ -43,7 +38,7 @@ namespace Calendar.ViewModels {
                 Month = StringMonth(currentMonthDate.Month);
                 Year = currentMonthDate.Year;
 
-                SetCalendarColors(currentMonthDate.Month - 1);
+                CalendarSettings.SetAppTheme(currentMonthDate.Month - 1);
                 FillCalendarData();
             }
         }
@@ -97,58 +92,10 @@ namespace Calendar.ViewModels {
             }
         }
 
-        public Color DefaultColor {
-            get => defaultColor;
-            set {
-                if (defaultColor != value) {
-                    defaultColor = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public Color TodaysColor {
-            get => todaysColor;
-            set {
-                if (todaysColor != value) {
-                    todaysColor = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public Color PrevNextColor {
-            get => prevNextColor;
-            set {
-                if (prevNextColor != value) {
-                    prevNextColor = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
-        public Color BackgroundColor {
-            get => backgroundColor;
-            set {
-                if (backgroundColor != value) {
-                    backgroundColor = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
-
         private void PrepareCalendarData() {
             for (int i = 0; i < CalendarDays.Length; i++) {
                 CalendarDays[i] = new DayCellViewModel();
             }
-        }
-
-        public void SetCalendarColors(int monthNum) {
-            MonthSettings monthSettings = CalendarSettings.GetMonthSettings(monthNum);
-            DefaultColor = monthSettings.DefaultColor;
-            TodaysColor = monthSettings.TodaysColor;
-            PrevNextColor = monthSettings.PrevNextColor;
-            BackgroundColor = monthSettings.BackgroundColor;
         }
 
         private void FillCalendarData() {
@@ -167,13 +114,12 @@ namespace Calendar.ViewModels {
                                   repeatRecords.Any(el => (el.RepeatCode == RepeatInfo.MonthRepeatCode && el.NoteDate.Day == counterDay.Day) ||
                                   el.RepeatCode == RepeatInfo.YearRepeatCode && el.NoteDate.Month == counterDay.Month && el.NoteDate.Day == counterDay.Day);
 
-                currDay.BorderColor = PrevNextColor;
                 if (currDay.Date == DateTime.Now.Date)
-                    currDay.Color = TodaysColor;
+                    currDay.Style = (Style)Application.Current.Resources["TodaysButton"];
                 else if (currDay.Date.Month != CurrentMonthDate.Month)
-                    currDay.Color = PrevNextColor;
+                    currDay.Style = (Style)Application.Current.Resources["PrevNextButton"];
                 else
-                    currDay.Color = DefaultColor;
+                    currDay.Style = (Style)Application.Current.Resources["DefaultButton"];
 
                 counterDay = counterDay.AddDays(1);
             }

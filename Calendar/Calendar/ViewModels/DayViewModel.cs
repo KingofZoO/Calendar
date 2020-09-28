@@ -69,7 +69,7 @@ namespace Calendar.ViewModels {
                     month = value;
                     OnPropertyChanged();
 
-                    MonthViewModel.SetCalendarColors(Date.Month - 1);
+                    CalendarSettings.SetAppTheme(Date.Month - 1);
                 }
             }
         }

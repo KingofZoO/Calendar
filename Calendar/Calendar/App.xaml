@@ -6,6 +6,27 @@
              mc:Ignorable="d"
              x:Class="Calendar.App">
     <Application.Resources>
+        <Style x:Key="ContentPageStyle" TargetType="ContentPage">
+            <Setter Property="BackgroundColor" Value="{DynamicResource BackgroundColor}"/>
+        </Style>
+
+        <Style TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{DynamicResource ButtonDefaultColor}"/>
+            <Setter Property="BorderColor" Value="{DynamicResource BorderColor}"/>
+        </Style>
+
+        <Style x:Key="DefaultButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{DynamicResource ButtonDefaultColor}"/>
+        </Style>
+
+        <Style x:Key="TodaysButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{DynamicResource ButtonTodaysColor}"/>
+        </Style>
+
+        <Style x:Key="PrevNextButton" TargetType="Button">
+            <Setter Property="BackgroundColor" Value="{DynamicResource ButtonPrevNextColor}"/>
+        </Style>
+
         <Style x:Key="HeaderLabel" TargetType="Label">
             <Setter Property="HorizontalOptions" Value="Center"/>
             <Setter Property="VerticalOptions" Value="Center"/>
