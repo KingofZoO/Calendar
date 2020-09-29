@@ -110,7 +110,7 @@ namespace Calendar.ViewModels {
                 DayCellViewModel currDay = CalendarDays[i];
                 currDay.Date = counterDay;
 
-                currDay.IsNoted = monthRecords.Any(el => el.NoteDate.Day == counterDay.Day) ||
+                currDay.IsNoted = monthRecords.Any(el => el.NoteDate.Date == counterDay.Date) ||
                                   repeatRecords.Any(el => (el.RepeatCode == RepeatInfo.MonthRepeatCode && el.NoteDate.Day == counterDay.Day) ||
                                   el.RepeatCode == RepeatInfo.YearRepeatCode && el.NoteDate.Month == counterDay.Month && el.NoteDate.Day == counterDay.Day);
 
