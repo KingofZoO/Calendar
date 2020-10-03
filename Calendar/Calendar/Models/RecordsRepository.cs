@@ -105,10 +105,10 @@ namespace Calendar.Models {
 
         private void UpdateNotRepeatedRecords() {
             foreach(var rec in NotRepeatRecords()) {
-                if(DateTime.Now.Date > rec.NoteDate) {
+                if(DateTime.Now.Date > rec.NoteDate || (rec.NotifyDate.HasValue && DateTime.Now > rec.NotifyDate.Value)) {
                     int dayCount = (DateTime.Now.Date - rec.NoteDate.Date).Days;
                     rec.NoteDate = rec.NoteDate.AddDays(dayCount);
-                    rec.NotifyDate = rec.NotifyDate.HasValue ? rec.NotifyDate.Value.AddDays(dayCount) : rec.NotifyDate;
+                    rec.NotifyDate = rec.NotifyDate.HasValue ? rec.NotifyDate.Value.AddDays(dayCount + 1) : rec.NotifyDate;
                     SaveRecord(rec);
                 }
             }
