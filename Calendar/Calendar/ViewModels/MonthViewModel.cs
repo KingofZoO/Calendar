@@ -112,7 +112,8 @@ namespace Calendar.ViewModels {
 
                 currDay.IsNoted = monthRecords.Any(el => el.NoteDate.Date == counterDay.Date) ||
                                   repeatRecords.Any(el => (el.RepeatCode == RepeatInfo.MonthRepeatCode && el.NoteDate.Day == counterDay.Day) ||
-                                  el.RepeatCode == RepeatInfo.YearRepeatCode && el.NoteDate.Month == counterDay.Month && el.NoteDate.Day == counterDay.Day);
+                                  (el.RepeatCode == RepeatInfo.YearRepeatCode && el.NoteDate.Month == counterDay.Month && el.NoteDate.Day == counterDay.Day) ||
+                                  (el.RepeatCode == RepeatInfo.WeekRepeatCode && el.NoteDate.DayOfWeek == counterDay.DayOfWeek));
 
                 if (currDay.Date == DateTime.Now.Date)
                     currDay.Style = (Style)Application.Current.Resources["TodaysButton"];

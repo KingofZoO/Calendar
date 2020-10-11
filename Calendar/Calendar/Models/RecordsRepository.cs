@@ -29,10 +29,11 @@ namespace Calendar.Models {
             IEnumerable<NoteRecord> repeatRecords = RepeatRecords();
 
             foreach(var rec in repeatRecords) {
+                bool weekCheck = rec.RepeatCode == RepeatInfo.WeekRepeatCode && rec.NoteDate.DayOfWeek == day.DayOfWeek;
                 bool monthCheck = rec.RepeatCode == RepeatInfo.MonthRepeatCode && rec.NoteDate.Day == day.Day;
                 bool yearCheck = rec.RepeatCode == RepeatInfo.YearRepeatCode && rec.NoteDate.Month == day.Month && rec.NoteDate.Day == day.Day;
 
-                if (monthCheck || yearCheck)
+                if (weekCheck || monthCheck || yearCheck)
                     resultRecords.Add(rec);
             }
 
@@ -91,6 +92,9 @@ namespace Calendar.Models {
                 DateTime recTime = rec.NotifyDate.Value;
                 if (now > recTime) {
                     switch (rec.RepeatCode) {
+                        case RepeatInfo.WeekRepeatCode:
+                            rec.NotifyDate = new DateTime(now.Year, now.Month, recTime.Day + 7, recTime.Hour, recTime.Minute, recTime.Second);
+                            break;
                         case RepeatInfo.MonthRepeatCode:
                             rec.NotifyDate = new DateTime(now.Year, now.Month + 1, recTime.Day, recTime.Hour, recTime.Minute, recTime.Second);
                             break;

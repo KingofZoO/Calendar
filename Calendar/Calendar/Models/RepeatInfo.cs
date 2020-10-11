@@ -7,7 +7,8 @@ namespace Calendar.Models {
         public const int NoRepeatCode = -1;
         public const int YearRepeatCode = 0;
         public const int MonthRepeatCode = 1;
+        public const int WeekRepeatCode = 2;
 
-        public static string[] RepeatStringCodes = new string[] { "Ежегодно", "Ежемесячно" };
+        public static string[] RepeatStringCodes = new string[] { "Ежегодно", "Ежемесячно", "Еженедельно"};
     }
 }
