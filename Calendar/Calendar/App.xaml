@@ -45,6 +45,7 @@
             <Setter Property="WidthRequest" Value="100"/>
             <Setter Property="HeightRequest" Value="100"/>
             <Setter Property="CornerRadius" Value="50"/>
+            <Setter Property="TextColor" Value="Black"/>
         </Style>
 
         <Style x:Key="MonthTodaysButton" TargetType="Button" BasedOn="{StaticResource MonthDefaultButton}">
