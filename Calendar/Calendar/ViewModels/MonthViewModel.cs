@@ -116,11 +116,11 @@ namespace Calendar.ViewModels {
                                   (el.RepeatCode == RepeatInfo.WeekRepeatCode && el.NoteDate.DayOfWeek == counterDay.DayOfWeek));
 
                 if (currDay.Date == DateTime.Now.Date)
-                    currDay.Style = (Style)Application.Current.Resources["TodaysButton"];
+                    currDay.Style = (Style)Application.Current.Resources["MonthTodaysButton"];
                 else if (currDay.Date.Month != CurrentMonthDate.Month)
-                    currDay.Style = (Style)Application.Current.Resources["PrevNextButton"];
+                    currDay.Style = (Style)Application.Current.Resources["MonthPrevNextButton"];
                 else
-                    currDay.Style = (Style)Application.Current.Resources["DefaultButton"];
+                    currDay.Style = (Style)Application.Current.Resources["MonthDefaultButton"];
 
                 counterDay = counterDay.AddDays(1);
             }
@@ -163,7 +163,7 @@ namespace Calendar.ViewModels {
 
         public void BackToMonthView(DateTime date) {
             CurrentMonthDate = date;
-            Back();
+            Navigation.PopToRootAsync();
         }
 
         public void Back() => Navigation.PopAsync();

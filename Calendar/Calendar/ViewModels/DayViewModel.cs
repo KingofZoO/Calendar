@@ -31,7 +31,7 @@ namespace Calendar.ViewModels {
             Date = date;
 
             NewNoteCommand = new Command<NoteRecord>(ShowNewNoteView);
-            MonthViewCommand = new Command(ShowMonthView);
+            MonthViewCommand = new Command(CurrentMonthView);
             PrevDayCommand = new Command(PrevDay);
             NextDayCommand = new Command(NextDay);
             RemoveRecordCommand = new Command<NoteRecord>(RemoveRecord);
@@ -74,8 +74,8 @@ namespace Calendar.ViewModels {
             }
         }
 
-        private void ShowMonthView() {
-            MonthViewModel.BackToMonthView(Date);
+        private void CurrentMonthView() {
+            MonthViewModel.BackToMonthView(DateTime.Today);
         }
 
         private void NextDay() => Date = Date.AddDays(1);

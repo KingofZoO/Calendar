@@ -11,4 +11,5 @@
     <Color x:Key="ButtonTodaysColor">White</Color>
     <Color x:Key="ButtonPrevNextColor">Gray</Color>
     <Color x:Key="BorderColor">White</Color>
+    <Color x:Key="YearBackgroundColor">#9AD1F0</Color>
 </ResourceDictionary>

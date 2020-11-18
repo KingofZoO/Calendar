@@ -20,7 +20,7 @@ namespace Calendar.ViewModels {
         public ICommand PrevYearCommand { get; private set; }
         public ICommand MonthViewCommand { get; private set; }
 
-        public ICommand BackToCurrentYearCommand { get; private set; }
+        public ICommand CurrentMonthViewCommand { get; private set; }
 
         public YearViewModel(MonthViewModel vm) {
             MonthViewModel = vm;
@@ -30,7 +30,7 @@ namespace Calendar.ViewModels {
             PrevYearCommand = new Command(PrevYear);
             MonthViewCommand = new Command<int>(ShowMonthView);
 
-            BackToCurrentYearCommand = new Command(ToCurrentYear);
+            CurrentMonthViewCommand = new Command(CurrentMonthView);
 
             PrepareYearData();
             FillYearData();
@@ -48,16 +48,16 @@ namespace Calendar.ViewModels {
 
         private void PrepareYearData() {
             for (int i = 0; i < Months.Length; i++) {
-                Months[i] = new MonthCellViewModel() { Month = MonthViewModel.MonthsName[i] };
+                Months[i] = new MonthCellViewModel() { Month = MonthViewModel.MonthsName[i].Substring(0, 3) };
             }
         }
 
         private void FillYearData() {
             for (int i = 0; i < Months.Length; i++) {
                 if (DateTime.Now.Year == Year && DateTime.Now.Month == i + 1)
-                    Months[i].Style = (Style)Application.Current.Resources["TodaysButton"];
+                    Months[i].Style = (Style)Application.Current.Resources["YearCurrentButton"];
                 else
-                    Months[i].Style = (Style)Application.Current.Resources["DefaultButton"];
+                    Months[i].Style = (Style)Application.Current.Resources["YearDefaultButton"];
             }
         }
 
@@ -75,9 +75,8 @@ namespace Calendar.ViewModels {
             MonthViewModel.BackToMonthView(new DateTime(Year, monthIndex + 1, 1));
         }
 
-        private void ToCurrentYear() {
-            Year = DateTime.Now.Year;
-            FillYearData();
+        private void CurrentMonthView() {
+            MonthViewModel.BackToMonthView(DateTime.Today);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:Calendar.Views"
              mc:Ignorable="d"
              x:Class="Calendar.Views.DayView"
              x:Name="Page"
@@ -12,12 +13,15 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="4*"/>
                 <RowDefinition Height="1*"/>
+                <RowDefinition Height="6*"/>
+                <RowDefinition Height="2*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
+            <Frame Grid.Row="0"/>
+
+            <Grid Grid.Row="1">
                 <Label Grid.Column="0" 
                        Text="{Binding Date.Day}" 
                        Style="{StaticResource HeaderLabel}"/>
@@ -29,7 +33,7 @@
                        Style="{StaticResource HeaderLabel}"/>
             </Grid>
 
-            <ListView Grid.Row="1"
+            <ListView Grid.Row="2"
                       ItemsSource="{Binding NoteRecords}"
                       HasUnevenRows="True"
                       SelectionMode="None">
@@ -47,7 +51,7 @@
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="3*"/>
                                     </Grid.ColumnDefinitions>
-                                    
+
                                     <Label Text="{Binding NoteTime}"
                                            Grid.Column="0"
                                            Style="{StaticResource ListViewLabel}"/>
@@ -61,15 +65,21 @@
                 </ListView.ItemTemplate>
             </ListView>
 
-            <Grid Grid.Row="2">
-                <Button Grid.Column="0" Text="Предыдущий" Command="{Binding PrevDayCommand}"/>
-                <Button Grid.Column="1" Text="Следующий" Command="{Binding NextDayCommand}"/>
-            </Grid>
+            <ImageButton Grid.Row="3" 
+                         Source="plus.png"
+                         Command="{Binding NewNoteCommand}"
+                         HorizontalOptions="EndAndExpand"
+                         CornerRadius="50"
+                         Margin="20"
+                         Padding="5"/>
 
-            <Grid Grid.Row="3">
-                <Button Grid.Column="0" Text="Новая запись" Command="{Binding NewNoteCommand}"/>
-                <Button Grid.Column="1" Text="Назад" Command="{Binding MonthViewCommand}"/>
-            </Grid>
+            <Frame Grid.Row="4" 
+                   Padding="10">
+                <local:MainNavigationView
+                    LeftCommand="{Binding PrevDayCommand}" 
+                    HouseCommand="{Binding MonthViewCommand}" 
+                    RightCommand="{Binding NextDayCommand}"/>
+            </Frame>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

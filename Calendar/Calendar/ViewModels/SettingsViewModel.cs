@@ -40,7 +40,7 @@ namespace Calendar.ViewModels {
         }
 
         private void ShowMonthView() {
-            MonthViewModel.BackToMonthView(DateTime.Now);
+            MonthViewModel.BackToMonthView(DateTime.Today);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

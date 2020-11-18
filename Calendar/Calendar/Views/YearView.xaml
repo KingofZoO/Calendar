@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:Calendar.Views"             
              mc:Ignorable="d"
              x:Class="Calendar.Views.YearView"
              Style="{StaticResource ContentPageStyle}">
@@ -11,25 +12,27 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
-                <RowDefinition Height="4*"/>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="7*"/>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0"
+            <Frame Grid.Row="0">
+                <Label
                    Text="{Binding Year}"                       
                    Style="{StaticResource HeaderLabel}"/>
+            </Frame>
 
-            <Grid Grid.Row="1" x:Name="MonthsGrid" HorizontalOptions="CenterAndExpand"></Grid>
+            <Grid Grid.Row="2" x:Name="MonthsGrid" HorizontalOptions="CenterAndExpand" Padding="0"></Grid>
 
-            <Grid Grid.Row="2">
-                <Button Grid.Column="0" Text="Предыдущий" Command="{Binding PrevYearCommand}"/>
-                <Button Grid.Column="1" Text="Следующий" Command="{Binding NextYearCommand}"/>
-            </Grid>
-
-            <Button Grid.Row="3"
-                    Text="Текущий год"
-                    Command="{Binding BackToCurrentYearCommand}"/>
+            <Frame Grid.Row="4"
+                   Padding="10">
+                <local:MainNavigationView
+                    LeftCommand="{Binding PrevYearCommand}" 
+                    HouseCommand="{Binding CurrentMonthViewCommand}" 
+                    RightCommand="{Binding NextYearCommand}"/>
+            </Frame>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

@@ -20,16 +20,15 @@ namespace Calendar.Views {
             MonthsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             MonthsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             MonthsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
-            MonthsGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
+            MonthsGrid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(1, GridUnitType.Star) });
             MonthsGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             MonthsGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
             MonthsGrid.ColumnDefinitions.Add(new ColumnDefinition { Width = new GridLength(1, GridUnitType.Star) });
 
-            for (int row = 0; row < 3; row++) {
-                for (int col = 0; col < 4; col++) {
+            for (int row = 0; row < 4; row++) {
+                for (int col = 0; col < 3; col++) {
                     Button monthButton = new Button();
-                    int monthIndex = 4 * row + col;
-                    monthButton.FontSize = 12;
+                    int monthIndex = 3 * row + col;
 
                     monthButton.SetBinding(Button.StyleProperty, $"Months[{monthIndex}].Style");
                     monthButton.SetBinding(Button.TextProperty, $"Months[{monthIndex}].Month");
