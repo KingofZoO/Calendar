@@ -36,8 +36,8 @@
             </Grid>
 
             <Grid Grid.Row="2">
-                <Label Grid.Row="0" Text="Время события" Style="{StaticResource ListViewLabel}"/>
-                <TimePicker Grid.Row="1" Time="{Binding NoteTime}" HorizontalOptions="Center"/>
+                <Label Grid.Column="0" Text="Время события" Style="{StaticResource ListViewLabel}" HorizontalOptions="End"/>
+                <TimePicker Grid.Column="1" Time="{Binding NoteTime}" HorizontalOptions="Center"/>
             </Grid>
 
             <Editor Grid.Row="3" Text="{Binding Note}"/>

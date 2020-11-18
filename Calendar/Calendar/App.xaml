@@ -22,6 +22,10 @@
             <Setter Property="FontFamily" Value="{StaticResource FontComfortaa}"/>
         </Style>
 
+        <Style TargetType="TimePicker">
+            <Setter Property="FontFamily"  Value="{StaticResource FontComfortaa}"/>
+        </Style>
+
         <Style TargetType="Editor">
             <Setter Property="FontFamily" Value="{StaticResource FontComfortaa}"/>
         </Style>
