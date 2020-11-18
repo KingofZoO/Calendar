@@ -25,10 +25,10 @@
                 <Label Grid.Column="0" 
                        Text="{Binding Date.Day}" 
                        Style="{StaticResource HeaderLabel}"/>
-                <Label Grid.Column="1" 
+                <Label Grid.Column="1" Grid.ColumnSpan="2"
                        Text="{Binding Month}" 
                        Style="{StaticResource HeaderLabel}"/>
-                <Label Grid.Column="2" 
+                <Label Grid.Column="3" 
                        Text="{Binding Date.Year}" 
                        Style="{StaticResource HeaderLabel}"/>
             </Grid>

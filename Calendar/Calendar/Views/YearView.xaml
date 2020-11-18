@@ -24,7 +24,7 @@
                    Style="{StaticResource HeaderLabel}"/>
             </Frame>
 
-            <Grid Grid.Row="2" x:Name="MonthsGrid" HorizontalOptions="CenterAndExpand" Padding="0"></Grid>
+            <Grid Grid.Row="2" x:Name="MonthsGrid" HorizontalOptions="FillAndExpand" Padding="0"></Grid>
 
             <Frame Grid.Row="4"
                    Padding="10">

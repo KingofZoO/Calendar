@@ -6,27 +6,39 @@
              mc:Ignorable="d"
              x:Class="Calendar.App">
     <Application.Resources>
+        <OnPlatform x:TypeArguments="x:String"  x:Key="FontComfortaa">
+            <On Platform="Android" Value="Comfortaa.ttf#Comfortaa"/>
+        </OnPlatform>
+        
         <Style x:Key="ContentPageStyle" TargetType="ContentPage">
             <Setter Property="BackgroundColor" Value="{DynamicResource BackgroundColor}"/>
         </Style>
 
         <Style TargetType="Label">
-            <Setter Property="FontFamily" Value="Comfortaa"/>
+            <Setter Property="FontFamily" Value="{StaticResource FontComfortaa}"/>
+        </Style>
+
+        <Style TargetType="Picker">
+            <Setter Property="FontFamily" Value="{StaticResource FontComfortaa}"/>
+        </Style>
+
+        <Style TargetType="Editor">
+            <Setter Property="FontFamily" Value="{StaticResource FontComfortaa}"/>
         </Style>
 
         <Style TargetType="Frame">
             <Setter Property="BackgroundColor" Value="White"/>
             <Setter Property="Padding" Value="0"/>
         </Style>
-        
+
         <Style TargetType="ImageButton">
             <Setter Property="BackgroundColor" Value="White"/>
             <Setter Property="HeightRequest" Value="100"/>
         </Style>
-        
+
         <Style TargetType="Button">
             <Setter Property="BackgroundColor" Value="{DynamicResource ButtonDefaultColor}"/>
-            <Setter Property="FontFamily" Value="Comfortaa"/>
+            <Setter Property="FontFamily" Value="{StaticResource FontComfortaa}"/>
             <Setter Property="FontSize" Value="24"/>
         </Style>
 
