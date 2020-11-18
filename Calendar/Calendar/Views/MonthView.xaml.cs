@@ -62,6 +62,10 @@ namespace Calendar.Views {
                         dayButton.SetBinding(Button.BorderWidthProperty, $"CalendarDays[{dayIndex}].IsNoted", BindingMode.OneWay, converter);
                         dayButton.SetBinding(Button.CommandProperty, "DayViewCommand");
 
+                        dayButton.CornerRadius = 100;
+                        dayButton.VerticalOptions = LayoutOptions.Center;
+                        dayButton.HorizontalOptions = LayoutOptions.Center;
+
                         dayButton.CommandParameter = dayIndex;
                         CalendarGrid.Children.Add(dayButton, col, row);
                     }

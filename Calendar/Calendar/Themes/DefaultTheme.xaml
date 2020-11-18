@@ -6,9 +6,9 @@
              mc:Ignorable="d"
              x:Class="Calendar.Themes.DefaultTheme">
 
-    <Color x:Key="BackgroundColor">White</Color>
-    <Color x:Key="ButtonDefaultColor">LightGray</Color>
-    <Color x:Key="ButtonTodaysColor">LightBlue</Color>
+    <Color x:Key="BackgroundColor">#7BB7D2</Color>
+    <Color x:Key="ButtonDefaultColor">#7BB7D2</Color>
+    <Color x:Key="ButtonTodaysColor">White</Color>
     <Color x:Key="ButtonPrevNextColor">Gray</Color>
-    <Color x:Key="BorderColor">Gray</Color>
+    <Color x:Key="BorderColor">White</Color>
 </ResourceDictionary>

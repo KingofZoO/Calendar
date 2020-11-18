@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Calendar.Views.MainNavigationView"
+             x:Name="This">
+    <ContentView.Content>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <ImageButton Grid.Column="0" x:Name="left_btn" 
+                    Source="arrow_left.png" 
+                    Command="{Binding LeftCommand, Source={x:Reference This}}"/>
+            <ImageButton Grid.Column="1" x:Name="house_btn" 
+                    Source="house_icon.png" 
+                    Command="{Binding HouseCommand, Source={x:Reference This}}"/>
+            <ImageButton Grid.Column="2" x:Name="right_btn" 
+                    Source="arrow_right.png" 
+                    Command="{Binding RightCommand, Source={x:Reference This}}"/>
+        </Grid>
+    </ContentView.Content>
+</ContentView>
