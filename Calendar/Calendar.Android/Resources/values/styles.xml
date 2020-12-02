@@ -7,14 +7,18 @@
     <item name="windowNoTitle">true</item>
     <item name="windowActionBar">false</item>
 
-    <item name="colorPrimary">#808080</item>
-    <item name="colorPrimaryDark">#808080</item>
-    <item name="colorAccent">#808080</item>
+    <item name="colorPrimary">@color/defaultGray</item>
+    <item name="colorPrimaryDark">#FFF</item>
+    <item name="colorAccent">@color/defaultGray</item>
 
     <item name="actionModeBackground">@color/ActionBackgroundColor</item>
+    <item name="android:actionMenuTextColor">@android:color/white</item>
     <item name="android:colorLongPressedHighlight">@color/LongPressHighlightColor</item>
     <item name="android:colorActivatedHighlight">@color/ListViewSelected</item>
+    
+    <item name="android:actionOverflowButtonStyle">@style/OverflowButtonStyle</item>
 
+    <item name="android:windowLightStatusBar">true</item>
     <item name="windowActionModeOverlay">true</item>
 
     <item name="android:datePickerDialogTheme">@style/AppCompatDialogStyle</item>
@@ -23,8 +27,13 @@
   <color name="ActionBackgroundColor">#808080</color>
   <color name="LongPressHighlightColor">#FFADD8E6</color>
   <color name="ListViewSelected">#FFADD8E6</color>
+  <color name="defaultGray">#808080</color>
   
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
     <item name="colorAccent">#FF4081</item>
+  </style>
+
+  <style name="OverflowButtonStyle">
+    <item name="android:src">@drawable/plus</item>
   </style>
 </resources>

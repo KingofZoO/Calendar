@@ -23,7 +23,11 @@ namespace Calendar {
         public App() {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MonthView());
+            MainPage = new NavigationPage(new MonthView()) {
+                BarBackgroundColor = Color.White,
+                BarTextColor = Color.FromHex("808080")
+            };
+
             MainPage.BindingContext = new MonthViewModel(DateTime.Today) {
                 Navigation = MainPage.Navigation
             };

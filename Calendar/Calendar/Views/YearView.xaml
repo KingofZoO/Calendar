@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:Calendar.Views"             
+             xmlns:local="clr-namespace:Calendar.Views.Components"             
              mc:Ignorable="d"
              x:Class="Calendar.Views.YearView"
              Style="{StaticResource ContentPageStyle}">
@@ -18,21 +18,19 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <Frame Grid.Row="0">
-                <Label
-                   Text="{Binding Year}"                       
-                   Style="{StaticResource HeaderLabel}"/>
-            </Frame>
+            <local:ToolBarComponent Grid.Row="0"
+                                    CentralTitle="{Binding Year}"
+                                    IsCentralTitleVisible="True"
+                                    BackCommand="{Binding MonthViewModel.BackCommand}"/>
 
-            <Grid Grid.Row="2" x:Name="MonthsGrid" HorizontalOptions="FillAndExpand" Padding="0"></Grid>
+            <Grid Grid.Row="2" x:Name="MonthsGrid" 
+                  HorizontalOptions="Center"
+                  VerticalOptions="Center"/>
 
-            <Frame Grid.Row="4"
-                   Padding="10">
-                <local:MainNavigationView
+            <local:MainNavigationComponent Grid.Row="4"
                     LeftCommand="{Binding PrevYearCommand}" 
                     HouseCommand="{Binding CurrentMonthViewCommand}" 
                     RightCommand="{Binding NextYearCommand}"/>
-            </Frame>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

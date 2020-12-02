@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Calendar.Views.Components.ContextMenuComponent"
+             x:Name="This">
+
+    <ContentView.Content>
+        <Frame>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.5*"/>
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Text="Назад"
+                    Command="{Binding BackCommand, Source={x:Reference This}}"
+                    Style="{StaticResource ContextButton}"/>
+
+                <Button Grid.Column="1" Text="Изменить" 
+                    Command="{Binding ChangeCommand, Source={x:Reference This}}"
+                    CommandParameter="{Binding ChangeCommandParameter, Source={x:Reference This}}"
+                    Style="{StaticResource ContextButton}"/>
+                <Button Grid.Column="2" Text="Удалить" 
+                    Command="{Binding DeleteCommand, Source={x:Reference This}}"
+                    CommandParameter="{Binding DeleteCommandParameter, Source={x:Reference This}}"
+                    Style="{StaticResource ContextButton}"/>
+                <ImageButton Grid.ColumnSpan="4" Padding="10" HorizontalOptions="End"
+                             Source="plus.png"
+                             Command="{Binding DeleteAllCommand, Source={x:Reference This}}"/>
+            </Grid>
+        </Frame>
+    </ContentView.Content>
+</ContentView>

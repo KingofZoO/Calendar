@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:Calendar.Views"
+             xmlns:local="clr-namespace:Calendar.Views.Components"
              mc:Ignorable="d"
              x:Class="Calendar.Views.NewRecordView"
              Style="{StaticResource ContentPageStyle}">
@@ -21,7 +21,8 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <Frame Grid.Row="0"/>
+            <local:ToolBarComponent Grid.Row="0"
+                                    BackCommand="{Binding DayViewModel.MonthViewModel.BackCommand}"/>
 
             <Grid Grid.Row="1">
                 <Label Grid.Column="0" 
@@ -43,34 +44,49 @@
             <Editor Grid.Row="3" Text="{Binding Note}"/>
 
             <Grid Grid.Row="4">
-                <Label Grid.Column="0" Text="Включить уведомление" Style="{StaticResource ListViewLabel}"/>
-                <CheckBox Grid.Column="0" IsChecked="{Binding IsNotifyOn}" HorizontalOptions="End"/>
-                <TimePicker Grid.Column="1" Time="{Binding NotifyTime}" HorizontalOptions="Center" VerticalOptions="Center" IsEnabled="{Binding IsNotifyOn}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="0.8*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Label Grid.Column="0" Text="Включить уведомление" Style="{StaticResource ListViewLabel}"/>
+                    <CheckBox Grid.Column="1" IsChecked="{Binding IsNotifyOn}" HorizontalOptions="Center"/>
+                    <TimePicker Grid.Column="2" Time="{Binding NotifyTime}" HorizontalOptions="Start" IsEnabled="{Binding IsNotifyOn}"/>
+                </Grid>
             </Grid>
 
             <Grid Grid.Row="5">
-                <Label Grid.Column="0" Text="Включить периодичность" Style="{StaticResource ListViewLabel}"/>
-                <CheckBox Grid.Column="0" IsChecked="{Binding IsRepeatOn}" HorizontalOptions="End"/>
-                <Picker Grid.Column="1" IsEnabled="{Binding IsRepeatOn}"
-                        ItemsSource="{Binding RepeatIntervals}"
-                        SelectedIndex="{Binding RepeatIndex}"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.2*"/>
+                        <ColumnDefinition Width="0.8*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label Grid.Column="0" Text="Включить периодичность" Style="{StaticResource ListViewLabel}"/>
+                    <CheckBox Grid.Column="1" IsChecked="{Binding IsRepeatOn}" HorizontalOptions="Center"/>
+                    <Picker Grid.Column="2" IsEnabled="{Binding IsRepeatOn}"
+                            ItemsSource="{Binding RepeatIntervals}"
+                            SelectedIndex="{Binding RepeatIndex}"/>
+                </Grid>
             </Grid>
 
             <ImageButton Grid.Row="6" 
                          Source="plus.png"
                          Command="{Binding AddRecordCommand}"
-                         HorizontalOptions="EndAndExpand"
-                         CornerRadius="50"
-                         Margin="20"
+                         HorizontalOptions="End"
+                         VerticalOptions="Center"
+                         HeightRequest="50"
+                         CornerRadius="25"
+                         Margin="20,20,40,20"
                          Padding="5"/>
 
-            <Frame Grid.Row="7" 
-                   Padding="10">
-                <local:MainNavigationView
+            <local:MainNavigationComponent Grid.Row="7"
                     LeftCommand="{Binding PrevDayCommand}" 
                     HouseCommand="{Binding DayViewModel.MonthViewCommand}" 
                     RightCommand="{Binding NextDayCommand}"/>
-            </Frame>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

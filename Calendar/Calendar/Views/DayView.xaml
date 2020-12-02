@@ -3,12 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:Calendar.Views"
+             xmlns:local="clr-namespace:Calendar.Views.Components"
+             xmlns:convert="clr-namespace:Calendar.Converters"
              mc:Ignorable="d"
              x:Class="Calendar.Views.DayView"
              x:Name="Page"
-             Style="{StaticResource ContentPageStyle}">
+             Style="{StaticResource ContentPageStyle}"
+             NavigationPage.HasNavigationBar="False">
 
+    <ContentPage.Resources>
+        <convert:SelectionToVisibilityConverter x:Key="SelectionToVision"/>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <Grid>
             <Grid.RowDefinitions>
@@ -19,7 +25,15 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <Frame Grid.Row="0"/>
+            <local:ToolBarComponent Grid.Row="0"
+                                    BackCommand="{Binding MonthViewModel.BackCommand}"/>
+
+            <local:ContextMenuComponent Grid.Row="0"
+                IsVisible="{Binding SelectedRecord, Converter={StaticResource SelectionToVision}}"
+                BackCommand="{Binding DropRecordSelectionCommand}"
+                ChangeCommand="{Binding ChangeRecordCommand}" ChangeCommandParameter="{Binding SelectedRecord}"
+                DeleteCommand="{Binding RemoveRecordCommand}" DeleteCommandParameter="{Binding SelectedRecord}"
+                DeleteAllCommand="{Binding DropRecordsCommand}"/>
 
             <Grid Grid.Row="1">
                 <Label Grid.Column="0" 
@@ -36,7 +50,8 @@
             <ListView Grid.Row="2"
                       ItemsSource="{Binding NoteRecords}"
                       HasUnevenRows="True"
-                      SelectionMode="None">
+                      SelectionMode="Single"
+                      SelectedItem="{Binding SelectedRecord, Mode=TwoWay}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
@@ -68,18 +83,17 @@
             <ImageButton Grid.Row="3" 
                          Source="plus.png"
                          Command="{Binding NewNoteCommand}"
-                         HorizontalOptions="EndAndExpand"
-                         CornerRadius="50"
-                         Margin="20"
+                         HorizontalOptions="End"
+                         VerticalOptions="Center"
+                         HeightRequest="50"
+                         CornerRadius="25"
+                         Margin="20,20,40,20"
                          Padding="5"/>
 
-            <Frame Grid.Row="4" 
-                   Padding="10">
-                <local:MainNavigationView
+            <local:MainNavigationComponent Grid.Row="4"
                     LeftCommand="{Binding PrevDayCommand}" 
                     HouseCommand="{Binding MonthViewCommand}" 
                     RightCommand="{Binding NextDayCommand}"/>
-            </Frame>
         </Grid>
     </ContentPage.Content>
 </ContentPage>

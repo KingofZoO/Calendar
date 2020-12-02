@@ -15,6 +15,7 @@ namespace Calendar.ViewModels {
         private string month;
 
         private IEnumerable<NoteRecord> noteRecords;
+        private NoteRecord selectedRecord;
 
         public MonthViewModel MonthViewModel { get; private set; }
 
@@ -25,6 +26,7 @@ namespace Calendar.ViewModels {
         public ICommand ChangeRecordCommand { get; private set; }
         public ICommand RemoveRecordCommand { get; private set; }
         public ICommand DropRecordsCommand { get; private set; }
+        public ICommand DropRecordSelectionCommand { get; private set; }
 
         public DayViewModel(MonthViewModel vm, DateTime date) {
             MonthViewModel = vm;
@@ -37,6 +39,7 @@ namespace Calendar.ViewModels {
             RemoveRecordCommand = new Command<NoteRecord>(RemoveRecord);
             ChangeRecordCommand = new Command<NoteRecord>(ChangeRecord);
             DropRecordsCommand = new Command(DropRecords);
+            DropRecordSelectionCommand = new Command(DropRecordSelection);
         }
 
         public IEnumerable<NoteRecord> NoteRecords {
@@ -44,6 +47,16 @@ namespace Calendar.ViewModels {
             set {
                 if (noteRecords != value) {
                     noteRecords = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
+        public NoteRecord SelectedRecord {
+            get => selectedRecord;
+            set {
+                if (selectedRecord != value) {
+                    selectedRecord = value;
                     OnPropertyChanged();
                 }
             }
@@ -88,11 +101,17 @@ namespace Calendar.ViewModels {
             });
         }
 
-        private void ChangeRecord(NoteRecord record) => ShowNewNoteView(record);
+        private void ChangeRecord(NoteRecord record) {
+            ShowNewNoteView(record);
+            DropRecordSelection();
+        }
+
+        private void DropRecordSelection() => SelectedRecord = null;
 
         private void RemoveRecord(NoteRecord record) {
             App.DataBase.DeleteRecord(record);
             NoteRecords = App.DataBase.DayRecords(Date);
+            DropRecordSelection();
         }
 
         private async void DropRecords() {
@@ -100,6 +119,7 @@ namespace Calendar.ViewModels {
             if (result) {
                 NoteRecords = null;
                 App.DataBase.DropRecords();
+                DropRecordSelection();
             }
         }
 

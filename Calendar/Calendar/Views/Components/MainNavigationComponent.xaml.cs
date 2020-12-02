@@ -2,25 +2,29 @@
 using Xamarin.Forms.Xaml;
 using System.Windows.Input;
 
-namespace Calendar.Views {
+namespace Calendar.Views.Components {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MainNavigationView : ContentView {
+    public partial class MainNavigationComponent : ContentView {
+        public MainNavigationComponent() {
+            InitializeComponent();
+        }
+
         public static readonly BindableProperty LeftCommandProperty = BindableProperty.Create(
             "LeftCommand",
             typeof(ICommand),
-            typeof(MainNavigationView),
+            typeof(MainNavigationComponent),
             null);
 
         public static readonly BindableProperty RightCommandProperty = BindableProperty.Create(
             "RightCommand",
             typeof(ICommand),
-            typeof(MainNavigationView),
+            typeof(MainNavigationComponent),
             null);
 
         public static readonly BindableProperty HouseCommandProperty = BindableProperty.Create(
             "HouseCommand",
             typeof(ICommand),
-            typeof(MainNavigationView),
+            typeof(MainNavigationComponent),
             null);
 
         public ICommand LeftCommand {
@@ -36,10 +40,6 @@ namespace Calendar.Views {
         public ICommand HouseCommand {
             get => (ICommand)GetValue(HouseCommandProperty);
             set => SetValue(HouseCommandProperty, value);
-        }
-
-        public MainNavigationView() {
-            InitializeComponent();
         }
     }
 }

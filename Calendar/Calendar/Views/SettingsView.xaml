@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:Calendar.Views"
+             xmlns:local="clr-namespace:Calendar.Views.Components"
              mc:Ignorable="d"
              x:Class="Calendar.Views.SettingsView"
              Style="{StaticResource ContentPageStyle}">
@@ -17,20 +17,18 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
 
-            <Frame Grid.Row="0"/>
+            <local:ToolBarComponent Grid.Row="0"
+                                    BackCommand="{Binding MonthViewModel.BackCommand}"/>
 
             <Grid Grid.Row="1">
                 <Label Grid.Column="0" Text="Разноцветный стиль" Style="{StaticResource ListViewLabel}" HorizontalOptions="Start"/>
                 <CheckBox Grid.Column="1" IsChecked="{Binding IsColorsOn}" HorizontalOptions="Start"/>
             </Grid>
 
-            <Frame Grid.Row="3" 
-                   Padding="10">
-                <local:MainNavigationView
+            <local:MainNavigationComponent Grid.Row="3"
                     LeftCommand="{Binding PrevMonthCommand}" 
                     HouseCommand="{Binding MonthViewCommand}" 
                     RightCommand="{Binding NextMonthCommand}"/>
-            </Frame>
         </Grid>
     </ContentPage.Content>
 </ContentPage>
