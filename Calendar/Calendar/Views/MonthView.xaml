@@ -22,7 +22,7 @@
 
             <ImageButton Grid.Row="0" Padding="10" HorizontalOptions="End"
                          Source="plus.png"
-                         Command="{Binding SettingsViewCommand}"/>
+                         Clicked="ImageButton_Clicked"/>
 
             <Grid Grid.Row="1">
                 <Label Grid.Column="0" 
@@ -33,6 +33,12 @@
                         Command="{Binding YearViewCommand}"
                         CornerRadius="30"/>
             </Grid>
+
+            <Frame x:Name="MenuFrame" Grid.Row="1" HorizontalOptions="End" CornerRadius="10">
+                <StackLayout>
+                    <Button x:Name="SettingsButton" Text="Настройки" Command="{Binding SettingsViewCommand}" Style="{StaticResource ContextButton}"/>
+                </StackLayout>
+            </Frame>
 
             <Grid Grid.Row="2" x:Name="CalendarGrid"/>
 

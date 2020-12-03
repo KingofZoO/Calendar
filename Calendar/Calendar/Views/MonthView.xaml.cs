@@ -21,9 +21,21 @@ namespace Calendar.Views {
             "вс"
         };
 
+        Animation menuFrameOn;
+        Animation menuFrameOff;
+
         public MonthView() {
             InitializeComponent();
-            
+
+            menuFrameOn = new Animation(w => {
+                MenuFrame.IsVisible = true;
+                MenuFrame.WidthRequest = w;
+            }, 0, 150);
+            menuFrameOff = new Animation(w => {
+                SettingsButton.IsVisible = false;
+                MenuFrame.WidthRequest = w;
+            }, 150, 0);
+
             PrepareCalendar();
         }
 
@@ -67,6 +79,25 @@ namespace Calendar.Views {
                     }
                 }
             }
+        }
+
+        private void ImageButton_Clicked(object sender, EventArgs e) {
+            if (MenuFrame.IsVisible)
+                menuFrameOff.Commit(MenuFrame, "animation_off", 16, 250, null, (v, c) => MenuFrame.IsVisible = false);
+            else
+                menuFrameOn.Commit(MenuFrame, "animation_on", 16, 250, null, (v, c) => SettingsButton.IsVisible = true);
+        }
+
+        protected override void OnAppearing() {
+            base.OnAppearing();
+
+            SettingsButton.IsVisible = false;
+            MenuFrame.IsVisible = false;
+        }
+
+        protected override void OnDisappearing() {
+            base.OnDisappearing();
+            MenuFrame.WidthRequest = 0;
         }
     }
 }
