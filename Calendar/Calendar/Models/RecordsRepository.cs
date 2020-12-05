@@ -87,16 +87,28 @@ namespace Calendar.Models {
         }
 
         private void UpdateRepeatedNotifications() {
-            foreach(var rec in RepeatNotifiedRecords()) {
+            foreach (var rec in RepeatNotifiedRecords()) {
                 DateTime now = DateTime.Now;
                 DateTime recTime = rec.NotifyDate.Value;
                 if (now > recTime) {
                     switch (rec.RepeatCode) {
                         case RepeatInfo.WeekRepeatCode:
-                            rec.NotifyDate = new DateTime(now.Year, now.Month, recTime.Day + 7, recTime.Hour, recTime.Minute, recTime.Second);
+                            if (recTime.Day + 7 > DateTime.DaysInMonth(now.Year, now.Month)) {
+                                int dayCount = recTime.Day + 7 - DateTime.DaysInMonth(now.Year, now.Month);
+
+                                if (now.Month == 12)
+                                    rec.NotifyDate = new DateTime(now.Year + 1, 1, dayCount, recTime.Hour, recTime.Minute, recTime.Second);
+                                else
+                                    rec.NotifyDate = new DateTime(now.Year, now.Month + 1, dayCount, recTime.Hour, recTime.Minute, recTime.Second);
+                            }
+                            else
+                                rec.NotifyDate = new DateTime(now.Year, now.Month, recTime.Day + 7, recTime.Hour, recTime.Minute, recTime.Second);
                             break;
                         case RepeatInfo.MonthRepeatCode:
-                            rec.NotifyDate = new DateTime(now.Year, now.Month + 1, recTime.Day, recTime.Hour, recTime.Minute, recTime.Second);
+                            if (now.Month == 12)
+                                rec.NotifyDate = new DateTime(now.Year + 1, 1, recTime.Day, recTime.Hour, recTime.Minute, recTime.Second);
+                            else
+                                rec.NotifyDate = new DateTime(now.Year, now.Month + 1, recTime.Day, recTime.Hour, recTime.Minute, recTime.Second);
                             break;
                         case RepeatInfo.YearRepeatCode:
                             rec.NotifyDate = new DateTime(now.Year + 1, recTime.Month, recTime.Day, recTime.Hour, recTime.Minute, recTime.Second);
